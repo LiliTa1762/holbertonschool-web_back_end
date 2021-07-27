@@ -12,25 +12,25 @@ class MRUCache(BaseCaching):
     def __init__(self):
         """Initialize method"""
         super().__init__()
-        self.__deque = deque()
+        self.__stack = deque()
 
     def put(self, key, item):
         """Discard the most recently used item and print the key discarded"""
         if key and item:
             if key in self.cache_data:
-                self.__deque.remove(key)
+                self.__stack.remove(key)
             elif len(self.cache_data) >= self.MAX_ITEMS:
-                mru_key = self.__deque.popleft()
+                mru_key = self.__stack.popleft()
                 del self.cache_data[mru_key]
                 print('DISCARD: {}'.format(mru_key))
 
-            self.__deque.append(key)
+            self.__stack.append(key)
             self.cache_data[key] = item
 
     def get(self, key):
         """Must return the value in dict linked to a key"""
         if key in self.cache_data:
-            self.__deque.remove(key)
-            self.__deque.append(key)
+            self.__stack.remove(key)
+            self.__stack.append(key)
             return self.cache_data[key]
         return None
