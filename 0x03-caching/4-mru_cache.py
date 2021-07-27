@@ -23,14 +23,13 @@ class MRUCache(BaseCaching):
                 mru_key = self.__stack.popleft()
                 del self.cache_data[mru_key]
                 print('DISCARD: {}'.format(mru_key))
-
-            self.__stack.append(key)
+            self.__stack.appendleft(key)
             self.cache_data[key] = item
 
     def get(self, key):
         """Must return the value in dict linked to a key"""
         if key in self.cache_data:
             self.__stack.remove(key)
-            self.__stack.append(key)
+            self.__stack.appendleft(key)
             return self.cache_data[key]
         return None
