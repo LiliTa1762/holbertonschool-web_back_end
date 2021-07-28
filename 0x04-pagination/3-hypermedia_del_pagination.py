@@ -41,14 +41,20 @@ class Server:
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """method to get info indexed by page"""
-        assert type(index) is int
-        assert 0 <= index < len(self.indexed_dataset())
+        assert index > 0 and type(index) is int
+        assert index < len(self.dataset())
 
         list_pages = []
-        list_pages = self.dataset()
+        next_index = index + page_size
+
+        for i in range(index, index + page_size):
+            if not self.indexed_dataset().get(i):
+                i += 1
+                next_index += 1
+            list_pages.append(self.indexed_dataset()[i])
 
         return {'index': index,
-                'next_idex': index + page_size,
+                'next_index': next_index,
                 'page_size': page_size,
-                'data': list_pages[index: index + page_size]
+                'data': list_pages
                 }
