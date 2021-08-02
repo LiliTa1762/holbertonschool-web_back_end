@@ -3,8 +3,10 @@
 
 
 import logging
+import mysql.connector
 import re
 from typing import List
+import os
 
 
 def filter_datum(fields: List[str],
@@ -37,3 +39,15 @@ class RedactingFormatter(logging.Formatter):
         log_records = filter_datum(self.fields, self.REDACTION,
                                    message_log, self.SEPARATOR)
         return log_records
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """connect to secure database"""
+    cnx = mysql.connector.connection.MySQLConnection(
+          user=os.getenv('PERSONAL_DATA_DB_USERNAME', 'root'),
+          password=os.getenv('PERSONAL_DATA_DB_PASSWORD', ''),
+          host=os.getenv('PERSONAL_DATA_DB_HOST', 'localhost'),
+          database=os.getenv('PERSONAL_DATA_DB_NAME')
+          )
+
+    return cnx
