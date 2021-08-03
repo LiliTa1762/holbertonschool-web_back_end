@@ -82,7 +82,8 @@ def main():
                           row[0], row[1], row[2], row[3], row[4],
                           row[5], row[6], row[7]
                           )
-        format_message = filter_datum(list(PII_FIELDS), '***', format_message, '; ')
+        format_message = filter_datum(list(PII_FIELDS),
+                                      '***', format_message, '; ')
         logger.info(format_message)
     cursor.close()
     db.close()
