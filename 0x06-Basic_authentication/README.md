@@ -1,6 +1,7 @@
 0x06. Basic authentication
 
 General
+
 - What authentication means
 - What Base64 is
 - How to encode a string in Base64
