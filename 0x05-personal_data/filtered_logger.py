@@ -12,6 +12,27 @@ import os
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
 
+class RedactingFormatter(logging.Formatter):
+    """ Redacting Formatter class
+        """
+
+    REDACTION = "***"
+    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
+    SEPARATOR = ";"
+
+    def __init__(self, fields: List[str]):
+        """constructor"""
+        super(RedactingFormatter, self).__init__(self.FORMAT)
+        self.fields = fields
+
+    def format(self, record: logging.LogRecord) -> str:
+        """filter values in incoming log records"""
+        message_log = logging.Formatter(self.FORMAT).format(record)
+        log_records = filter_datum(self.fields, self.REDACTION,
+                                   message_log, self.SEPARATOR)
+        return log_records
+
+
 def filter_datum(fields: List[str],
                  redaction: str,
                  message: str,
@@ -48,22 +69,25 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     return cnx
 
 
-class RedactingFormatter(logging.Formatter):
-    """ Redacting Formatter class
-        """
+def main():
+    """takes no arguments and returns nothing"""
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users;")
+    logger = get_logger()
+    for row in cursor:
+        format_message = "name={}; email={};\
+                          phone={}; ssn={}; password={};\
+                          ip={}; last_login={}; user_agent={}; ".format(
+                          row[0], row[1], row[2], row[3], row[4],
+                          row[5], row[6], row[7]
+                          )
+        format_message = filter_datum(list(PII_FIELDS), '***', format_message, '; ')
+        logger.info(format_message)
+    cursor.close()
+    db.close()
 
-    REDACTION = "***"
-    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
-    SEPARATOR = ";"
 
-    def __init__(self, fields: List[str]):
-        """constructor"""
-        super(RedactingFormatter, self).__init__(self.FORMAT)
-        self.fields = fields
-
-    def format(self, record: logging.LogRecord) -> str:
-        """filter values in incoming log records"""
-        message_log = logging.Formatter(self.FORMAT).format(record)
-        log_records = filter_datum(self.fields, self.REDACTION,
-                                   message_log, self.SEPARATOR)
-        return log_records
+if __name__ == '__main__':
+    """ Only the main function should run when the module is executed """
+    main()
