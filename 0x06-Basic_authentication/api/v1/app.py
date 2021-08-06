@@ -20,6 +20,7 @@ elif os.getenv("AUTH_TYPE") == "auth":
     from api.v1.auth.auth import Auth
     auth = Auth()
 
+
 @app.before_request
 def handler_before_request():
     """ Filtering each request
