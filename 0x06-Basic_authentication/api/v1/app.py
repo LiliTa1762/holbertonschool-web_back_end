@@ -30,7 +30,7 @@ def handler_before_request():
 
     if auth is None:
         return
-    if auth.require_auth(path, excluded_paths) is True:
+    if not auth.require_auth(request.path, excluded_paths):
         return
     if auth.authorization_header(request) is None:
         abort(401)
