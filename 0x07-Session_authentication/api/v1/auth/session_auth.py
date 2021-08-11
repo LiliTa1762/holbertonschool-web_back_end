@@ -29,3 +29,10 @@ class SessionAuth(Auth):
         else:
             x = self.user_id_by_session_id.get(session_id)
             return x
+
+    def current_user(self, request=None):
+        """overload that returns a User instance based on a cookie"""
+        s_cookie = self.session_cookie(request)
+        user_id_cookie = self.user_id_for_session_id(s_cookie)
+        user = User.get(user_id_cookie)
+        return user
