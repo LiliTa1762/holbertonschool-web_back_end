@@ -58,4 +58,3 @@ class DB:
             if not hasattr(id, key):
                 raise ValueError()
         self._session.commit()
-        return user_id
