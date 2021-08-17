@@ -1,8 +1,10 @@
 """DB module
 """
 from sqlalchemy import create_engine
+from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.orm.session import Session
 
 from user import Base, User
@@ -35,3 +37,24 @@ class DB:
         self._session.add(user)
         self._session.commit()
         return user
+
+    def find_user_by(self, *kwargs) -> User:
+        """returns the first row found in the users table
+        as filtered by the method’s input arguments"""
+        user = self._session.query(User).filter_by(**kwargs).first()
+
+        if kwargs is None:
+            raise InvalidRequestError
+
+        if user is None:
+            raise NoResultFound
+        else:
+            return user
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """locate the user to update, update the user’s
+        attributes and commit changes"""
+        pass
+        """
+        id = self.find_user_by(id=user_id)
+        """
