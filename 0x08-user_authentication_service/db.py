@@ -55,4 +55,3 @@ class DB:
         id = self.find_user_by(id=user_id)
         self._session.commit()
         return user_id
-
