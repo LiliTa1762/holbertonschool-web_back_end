@@ -52,7 +52,7 @@ class DB:
     def update_user(self, user_id: int, **kwargs) -> None:
         """locate the user to update, update the user’s
         attributes and commit changes"""
-        pass
-        """
         id = self.find_user_by(id=user_id)
-        """
+        self._session.commit()
+        return user_id
+
