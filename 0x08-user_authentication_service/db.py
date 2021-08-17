@@ -53,5 +53,9 @@ class DB:
         """locate the user to update, update the user’s
         attributes and commit changes"""
         id = self.find_user_by(id=user_id)
+        for key, value in kwargs.items():
+            setattr(id, key, value)
+            if not id:
+                raise ValueError()
         self._session.commit()
         return user_id
