@@ -15,6 +15,7 @@ def hello():
     """first route"""
     return jsonify({"message": "Bienvenue"})
 
+
 @app.route('/users', methods=['POST'], strict_slashes=False)
 def users():
     """end-point to register a user"""
