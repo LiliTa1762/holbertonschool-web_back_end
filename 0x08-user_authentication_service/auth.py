@@ -36,6 +36,7 @@ class Auth:
         except NoResultFound:
             return False
 
+
 def _hash_password(password: str) -> bytes:
     """Method to hash password"""
     p = password.encode()
