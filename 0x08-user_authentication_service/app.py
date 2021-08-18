@@ -2,7 +2,7 @@
 """Basic Flask app"""
 
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, abort
 from auth import Auth
 
 
@@ -34,8 +34,8 @@ def login():
     """Log in method"""
     email = request.form.get("email")
     password = request.form.get("password")
-    if not email and password:
-        return abort(401)
+    if AUTH.valid_login(email, password) is False:
+        abort(401)
     else:
         AUTH.create_session(email)
         return jsonify({"email": email, "message": "logged in"})
