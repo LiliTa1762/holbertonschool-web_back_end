@@ -3,7 +3,6 @@
 
 
 from flask import Flask, jsonify, request, abort, make_response, redirect
-from flask import url_for
 from auth import Auth
 from sqlalchemy.orm.exc import NoResultFound
 
