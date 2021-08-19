@@ -2,7 +2,7 @@
 """Basic Flask app"""
 
 
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, make_response
 from auth import Auth
 
 
@@ -34,11 +34,13 @@ def login():
     """Log in method"""
     email = request.form.get("email")
     password = request.form.get("password")
-    if AUTH.valid_login(email, password) is False:
+    if not AUTH.valid_login(email, password):
         abort(401)
-    else:
-        AUTH.create_session(email)
-        return jsonify({"email": email, "message": "logged in"})
+    session_id = AUTH.create_session(email)
+    if session_id is not None:
+        resp = make_response(jsonify({"email": email, "message": "logged in"}))
+        resp.set_cookie("session", session_id)
+        return resp
 
 
 if __name__ == "__main__":
