@@ -74,6 +74,7 @@ class Auth:
         self._db.update_user(user.id, reset_token=token)
         return token
 
+
 def _hash_password(password: str) -> bytes:
     """Method to hash password"""
     p = password.encode()
