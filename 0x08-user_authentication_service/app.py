@@ -2,7 +2,8 @@
 """Basic Flask app"""
 
 
-from flask import Flask, jsonify, request, abort, make_response, redirect, url_for
+from flask import Flask, jsonify, request, abort, make_response, redirect
+from flask import url_for
 from auth import Auth
 
 
