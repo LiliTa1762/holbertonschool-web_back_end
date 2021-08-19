@@ -4,7 +4,6 @@
 
 from flask import Flask, jsonify, request, abort, make_response, redirect
 from auth import Auth
-from sqlalchemy.orm.exc import NoResultFound
 
 
 app = Flask(__name__)
@@ -47,14 +46,16 @@ def login():
 @app.route('/sessions', methods=['DELETE'])
 def logout() -> str:
     """Log out function"""
-    session_id = request.cookies.get("session_id", None)
-    if session_id is None:
-        abort(403)
-    user = AUTH.get_user_from_session_id(session_id)
+@app.route('/sessions', methods=['DELETE'])
+def logout():
+    """ user logout by destroying the session_id """
+    cookie = request.cookies.get("session_id")
+    user = AUTH.get_user_from_session_id(cookie)
     if user is None:
         abort(403)
-    AUTH.destroy_session(user.id)
-    return redirect('/')
+    else:
+        AUTH.destroy_session(user.id)
+        return redirect('/')
 
 
 if __name__ == "__main__":
