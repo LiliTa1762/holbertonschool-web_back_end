@@ -57,6 +57,16 @@ class Auth:
             return None
         return user
 
+    def destroy_session(user_id: int) -> None:
+        """Destroy session"""
+        try:
+            user = self._db.find_user_by(session_id=session_id)
+            session_id = None
+            self._db.update_user(user.id, session_id=session_id)
+            return None
+        except NoResultFound:
+            return None
+
 
 def _hash_password(password: str) -> bytes:
     """Method to hash password"""
