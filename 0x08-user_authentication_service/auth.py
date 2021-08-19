@@ -56,8 +56,7 @@ class Auth:
         user = self._db.find_user_by(session_id=session_id)
         if user is None:
             return None
-        else:
-            return user
+        return user
 
 
 def _hash_password(password: str) -> bytes:
