@@ -32,15 +32,14 @@ def users():
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
 def login():
     """Log in method"""
-    email = request.form.get("email")
-    password = request.form.get("password")
-    if not AUTH.valid_login(email, password):
+    email = request.form.get('email')
+    password = request.form.get('password')
+    if AUTH.valid_login(email, password) is False:
         abort(401)
     session_id = AUTH.create_session(email)
-    if session_id is not None:
-        resp = make_response(jsonify({"email": email, "message": "logged in"}))
-        resp.set_cookie("session", session_id)
-        return resp
+    resp = jsonify({'email': email, 'message': 'logged in'})
+    resp.set_cookie('session_id', session_id)
+    return resp
 
 
 @app.route('/sessions', methods=['DELETE'], strict_slashes=False)
@@ -52,6 +51,16 @@ def logout():
         abort(403)
     AUTH.destroy_session(user.id)
     return redirect('/')
+
+
+@app.route('/profile', methods=['GET'], strict_slashes=False)
+def profile():
+    """User profile"""
+    session_id = request.cookies.get('session_id')
+    user = AUTH.get_user_from_session_id(session_id)
+    if session_id is None or user is None:
+        abort(403)
+    return jsonify({"email": user.email}), 200
 
 
 if __name__ == "__main__":
