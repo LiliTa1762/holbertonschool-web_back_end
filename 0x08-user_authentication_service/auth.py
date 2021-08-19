@@ -56,6 +56,7 @@ class Auth:
         else:
             return user
 
+
 def _hash_password(password: str) -> bytes:
     """Method to hash password"""
     p = password.encode()
