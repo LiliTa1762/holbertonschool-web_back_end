@@ -44,10 +44,10 @@ def login():
         return resp
 
 
-@app.route('/sessions', methods=['DELETE'], strict_slashes=False)
+@app.route('/sessions', methods=['DELETE'])
 def logout() -> str:
     """Log out function"""
-    session_id = request.cookies.get('session_id')
+    session_id = request.cookies.get("session_id", None)
     if session_id is None:
         abort(403)
     user = AUTH.get_user_from_session_id(session_id)
