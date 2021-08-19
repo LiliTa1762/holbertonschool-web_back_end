@@ -49,13 +49,15 @@ class Auth:
         except NoResultFound:
             return None
 
-    def get_user_from_session_id(session_id: str) -> Union[str, None]:
+    def get_user_from_session_id(self, session_id: str) -> Union[str, None]:
         """"Find user by session ID"""
-        try:
-            user = self._db.find_user_by(session_id=session_id)
-        except NoResultFound:
+        if session_id is None:
             return None
-        return user
+        user = self._db.find_user_by(session_id=session_id)
+        if user is None:
+            return None
+        else:
+            return user
 
 
 def _hash_password(password: str) -> bytes:
