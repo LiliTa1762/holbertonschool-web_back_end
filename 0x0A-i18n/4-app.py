@@ -7,8 +7,6 @@ from flask_babel import Babel, gettext
 
 app = Flask(__name__)
 
-babel = Babel(app)
-
 
 class Config(object):
     """Configure available languages"""
@@ -18,6 +16,13 @@ class Config(object):
 
 
 app.config.from_object(Config)
+babel = Babel(app)
+
+
+@app.route('/')
+def home():
+    """Get status API"""
+    return render_template('4-index.html')
 
 
 @babel.localeselector
@@ -27,12 +32,6 @@ def get_locale():
     if opt_param:
         return opt_param
     return request.accept_languages.best_match(app.config['LANGUAGES'])
-
-
-@app.route('/', methods=['GET'], strict_slashes=False)
-def home():
-    """Get status API"""
-    return render_template('4-index.html')
 
 
 if __name__ == "__main__":

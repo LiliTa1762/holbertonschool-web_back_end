@@ -7,8 +7,6 @@ from flask_babel import Babel, _
 
 app = Flask(__name__)
 
-babel = Babel(app)
-
 
 class Config(object):
     """Configure available languages"""
@@ -18,6 +16,7 @@ class Config(object):
 
 
 app.config.from_object(Config)
+babel = Babel(app)
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
