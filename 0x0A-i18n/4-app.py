@@ -29,7 +29,7 @@ def home():
 def get_locale():
     """Get local from request"""
     opt_param = request.args.get("locale")
-    if opt_param:
+    if opt_param in app.config['LANGUAGES']:
         return opt_param
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
