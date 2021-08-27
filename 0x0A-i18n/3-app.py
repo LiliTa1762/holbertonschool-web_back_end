@@ -20,16 +20,16 @@ class Config:
 app.config.from_object(Config)
 
 
-@babel.localeselector
-def get_locale():
-    """Get local from request"""
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
-
-
 @app.route('/', methods=['GET'], strict_slashes=False)
 def home():
     """Get status API"""
     return render_template('3-index.html')
+
+
+@babel.localeselector
+def get_locale():
+    """Get local from request"""
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 if __name__ == "__main__":
