@@ -3,7 +3,7 @@
 from pymongo import MongoClient
 
 if __name__ == "__main__":
-    client = MongoClient('mongodb://127.0.0.1:27017')	
+    client = MongoClient('mongodb://127.0.0.1:27017')
     log = client.logs.nginx
     all = log.count_documents({})
     print(all, "logs")
@@ -16,4 +16,3 @@ if __name__ == "__main__":
     print("method DELETE:", log.count_documents({"method": "DELETE"}))
 
     print(log.count_documents({"path": "/status"}), "status check")
-
