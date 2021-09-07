@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+""" Change all doc based on a name"""
 
 def update_topics(mongo_collection, name, topics):
     """ Change school topics"""
