@@ -6,16 +6,16 @@ export default class Pricing {
     this.currency = currency;
   }
 
-  get amout() {
+  get amount() {
     return this._amount;
-  }
-
-  get currency() {
-    return this._currency;
   }
 
   set amount(amount) {
     if (typeof amount === 'number') this._amount = amount;
+  }
+
+  get currency() {
+    return this._currency;
   }
 
   set currency(currency) {
@@ -27,6 +27,6 @@ export default class Pricing {
   }
 
   static convertPrice(amount, conversionRate) {
-    return amount * conversionRate;
+    return (amount * conversionRate);
   }
 }
