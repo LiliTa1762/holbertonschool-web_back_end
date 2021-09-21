@@ -1,6 +1,4 @@
 export default function getStudentIdsSum(getListStudents) {
-  const reducer = getListStudents.reduce((acc, item) => {
-    acc += item;
-  })
-  return reducer;
+  const reducer = (previousValue, currentValue) => previousValue + currentValue.id;
+  return getListStudents.reduce(reducer);
 }
