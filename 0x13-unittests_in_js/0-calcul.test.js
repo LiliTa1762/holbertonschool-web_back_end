@@ -9,7 +9,7 @@ describe('calculateNumber', function() {
   });
 });
 
-describe('calculateNumber', function() {
+describe('calculate sum', function() {
   describe('Sum integers', function() {
     it('should be able to round and return 5', function() {
       assert.strictEqual(calculateNumber(1, 3.7), 5);
@@ -17,7 +17,7 @@ describe('calculateNumber', function() {
   });
 });
 
-describe('calculateNumber', function() {
+describe('sum numbers', function() {
   describe('Sum integers', function() {
     it('should be able to round and return 5', function() {
       assert.strictEqual(calculateNumber(1.2, 3.7), 5);
@@ -25,7 +25,7 @@ describe('calculateNumber', function() {
   });
 });
 
-describe('calculateNumber', function() {
+describe('round numbers', function() {
   describe('Sum integers', function() {
     it('should be able to add, round and return 6', function() {
       assert.strictEqual(calculateNumber(1.5, 3.7), 6);
