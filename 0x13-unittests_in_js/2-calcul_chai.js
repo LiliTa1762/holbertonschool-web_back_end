@@ -17,7 +17,7 @@ function calculateNumber(type, a, b) {
     roundA = Math.round(a);
     roundB = Math.round(b);
 
-    if (roundB === 0 ){
+    if (roundB === 0 ) {
       return ("Error");
     }
     else {
