@@ -1,6 +1,6 @@
 function calculateNumber(a, b) {
-  roundA = Math.round(a);
-  roundB = Math.round(b);
+  const roundA = Math.round(a);
+  const roundB = Math.round(b);
 
   return roundA + roundB;
 }
