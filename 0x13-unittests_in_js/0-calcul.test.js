@@ -20,6 +20,18 @@ describe('calculateNumber', function() {
     });
   });
 
+  describe('Sum and round int to 10', function() {
+    it('should be able to round and return 10', function() {
+      assert.strictEqual(calculateNumber(4.5, 5.5), 11);
+    });
+  });
+
+  describe('Sum and round int to 8', function() {
+    it('should be able to round and return 8', function() {
+      assert.strictEqual(calculateNumber(4, 4), 8);
+    });
+  });
+
   describe('Sum and round numbers', function() {
     it('should be able to add, round and return 6', function() {
       assert.strictEqual(calculateNumber(1.5, 3.7), 6);
